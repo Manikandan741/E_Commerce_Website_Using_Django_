@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}Your Cart - E-Shop{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h2>🛒 Your Shopping Cart</h2>
+
+    {% if items %}
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price (₹)</th>
+                <th>Total (₹)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.product.price }}</td>
+                <td>₹{{ item.product.price|floatformat:2|add:""|default:"" }}</td>
+                <td>
+                    <a href="{% url 'remove_from_cart' item.id %}" class="remove-btn">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="cart-summary">
+        <h3>Total Amount: ₹{{ total }}</h3>
+        <a href="{% url 'payment' %}" class="payment-btn">💳 Proceed to Payment</a>
+    </div>
+
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+
+<style>
+.cart-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-table th, .cart-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.cart-summary {
+    text-align: right;
+    margin-top: 15px;
+}
+
+.payment-btn {
+    background: #1a73e8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.payment-btn:hover {
+    background: #155fc5;
+}
+
+.remove-btn {
+    color: #d9534f;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.remove-btn:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+</style>
+{% endblock %}

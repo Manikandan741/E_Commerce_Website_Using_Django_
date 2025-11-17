@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Successful{% endblock %}
+
+{% block content %}
+<div class="success-container">
+    <div class="success-card">
+        <h1>✅ Payment Successful!</h1>
+        <p>Thank you for your purchase, {{ user.username }}.</p>
+        <p>Your order will be delivered within <strong>one week</strong>.</p>
+        <a href="{% url 'home' %}" class="btn">Continue Shopping</a>
+    </div>
+</div>
+
+<style>
+    .success-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 75vh;
+        background: linear-gradient(135deg, #dceeff, #b3d4fc);
+    }
+
+    .success-card {
+        background: white;
+        padding: 40px 60px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        transition: transform 0.3s ease;
+    }
+
+    .success-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .success-card h1 {
+        color: #28a745;
+        margin-bottom: 15px;
+        font-size: 28px;
+    }
+
+    .success-card p {
+        color: #333;
+        font-size: 18px;
+        margin: 8px 0;
+    }
+
+    .success-card .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 28px;
+        background-color: #1a73e8;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
+
+    .success-card .btn:hover {
+        background-color: #155fc5;
+    }
+</style>
+{% endblock %}

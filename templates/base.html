@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}E-Shop{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+
+        /* Navbar container */
+        nav {
+            background: #1a73e8;
+            color: white;
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Left section (brand + nav links) */
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-left a:hover {
+            color: #e0ecff;
+        }
+
+        /* Right section (user info + logout/login) */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .username {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-right a:hover {
+            color: #dfe7ff;
+        }
+
+        .container {
+            padding: 25px;
+        }
+
+        /* Cards and Buttons */
+        .card { border: 1px solid #ccc; padding: 15px; background: white; width: 250px; border-radius: 8px; }
+        .cards { display: flex; flex-wrap: wrap; gap: 20px; }
+        button { padding: 6px 12px; border: none; background: #1a73e8; color: white; cursor: pointer; border-radius: 5px; }
+        button:hover { background: #155fc5; }
+        input { width: 100%; padding: 7px; margin: 5px 0; border-radius: 3px; border: 1px solid #ccc; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: center; text-align: center; }
+            .nav-left, .nav-right { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <div class="brand">🛒 E-Shop</div>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'cart' %}">Cart</a>
+        </div>
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span class="username">Hello, {{ user.username }}</span>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
